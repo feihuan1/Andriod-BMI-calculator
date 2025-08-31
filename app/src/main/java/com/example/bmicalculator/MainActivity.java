@@ -12,7 +12,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toast.makeText(this, "holy shit, this is alert", Toast.LENGTH_LONG).show();
+        String alertText = "OMG, I can code in Java";
+
+        Toast.makeText(this, alertText, Toast.LENGTH_LONG).show();
 
     }
 }
