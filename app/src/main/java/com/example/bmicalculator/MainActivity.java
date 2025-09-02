@@ -6,38 +6,68 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import androidx.appcompat.app.AppCompatActivity;
-
 public class MainActivity extends AppCompatActivity {
+
+    //class variable || fields
+    private TextView resutText;
+    private Button calculateButton;
+    private RadioButton radioButtonMale;
+    private RadioButton radioButtonFemale;
+    private EditText editTextAge;
+    private EditText editTextFeet;
+    private EditText editTextInches;
+    private EditText editTextweight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView resutText = findViewById(R.id.text_view_result);
+        findViews();
+        setupbuttonClickListener();
+    }
 
-        RadioButton radioButtonMale = findViewById(R.id.radio_button_male);
-        RadioButton radioButtonFemale = findViewById(R.id.radio_button_female);
+    private void findViews(){
+        resutText = findViewById(R.id.text_view_result);
 
-        EditText editTextAge = findViewById(R.id.edit_text_age);
-        EditText editTextFeet = findViewById(R.id.edit_text_feet);
-        EditText editTextInches = findViewById(R.id.edit_text_inches);
-        EditText editTextweight = findViewById(R.id.edit_text_weight);
-
-        Button calculateButton = findViewById(R.id.button_calculate);
-
+        radioButtonMale = findViewById(R.id.radio_button_male);
+        radioButtonFemale = findViewById(R.id.radio_button_female);
+        editTextAge = findViewById(R.id.edit_text_age);
+        editTextFeet = findViewById(R.id.edit_text_feet);
+        editTextInches = findViewById(R.id.edit_text_inches);
+        editTextweight = findViewById(R.id.edit_text_weight);
+        calculateButton = findViewById(R.id.button_calculate);
+    }
+    private void setupbuttonClickListener() {
         calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "clicked",Toast.LENGTH_LONG).show();
+                calculateBmi();
             }
         });
+    }
 
-//        resutText.setText("Woohoo, Updated");
-//        String alertText = "OMG, I can code in Java";
-//        Toast.makeText(this, alertText, Toast.LENGTH_LONG).show();
+    private void calculateBmi() {
+        String ageText = editTextAge.getText().toString();
+        String feetText = editTextFeet.getText().toString();
+        String inchesText = editTextInches.getText().toString();
+        String weightText = editTextweight.getText().toString();
+
+        int age = Integer.parseInt(ageText);
+        int feet = Integer.parseInt(feetText);
+        int inches = Integer.parseInt(inchesText);
+        int weight = Integer.parseInt(weightText);
+
+        int totalInches = (feet * 12) + inches;
+        double heightInMeters = totalInches * 0.0254;
+
+        double bmi = weight / (heightInMeters * heightInMeters);
+
+        String bmiText = String.valueOf(bmi);
+
+        resutText.setText(bmiText);
     }
 }
